@@ -14,14 +14,14 @@ export default async function AuthNav() {
         href="/login"
         className="text-white font-inter font-semibold text-[12px] tracking-[-0.03em] hover:opacity-80"
       >
-        Log In
+        Log out
       </Link>
     );
   }
 
   return (
     <div className="flex items-center gap-[16px]">
-      <Link href="/orders">
+      {/* <Link href="/orders">
         <Image
           src="/images/UserCircle.svg"
           alt="User"
@@ -29,7 +29,7 @@ export default async function AuthNav() {
           height={30}
           className="cursor-pointer"
         />
-      </Link>
+      </Link> */}
 
       <form action="/api/logout" method="POST">
         <button
