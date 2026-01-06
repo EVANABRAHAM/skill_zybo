@@ -14,6 +14,8 @@ interface Product {
 }
 
 // Server Component (no 'use client')
+export const dynamic = 'force-dynamic';
+
 export default async function ProductPage() {
   let products: Product[] = [];
   let errorMsg = null;

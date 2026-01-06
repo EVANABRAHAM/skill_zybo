@@ -1,6 +1,7 @@
 import LoginHeader from "@/components/auth/LoginHeader";
 import VerifyPhoneBlock from "@/components/auth/VerifyPhone";
 import Footer from "@/components/layout/Footer";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -24,8 +25,10 @@ export default function LoginPage() {
 
         {/* RIGHT SIDE – Login Form */}
         <div className="w-1/2 h-full bg-black flex items-start justify-center pt-[70px]">
-  <VerifyPhoneBlock />
-</div>
+          <Suspense fallback={<div className="text-white text-center mt-20">Loading...</div>}>
+            <VerifyPhoneBlock />
+          </Suspense>
+        </div>
 
       </section>
 
