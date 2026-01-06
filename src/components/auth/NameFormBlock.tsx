@@ -26,7 +26,7 @@ export default function NameFormBlock() {
             // Store token (checking both 'access' field and 'token.access' nested field)
             const token = response.data.access || response.data.token?.access;
             if (token) {
-                localStorage.setItem("token", token);
+                document.cookie = `access_token=${token}; path=/; max-age=86400;`;
             }
             router.push("/product-page");
         } catch (error) {

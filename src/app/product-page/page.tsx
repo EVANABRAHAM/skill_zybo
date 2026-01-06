@@ -1,5 +1,3 @@
-'use client';
-import { useState, useEffect } from "react";
 import ShoeCard1 from "@/components/product/shoe1";
 import ShoeCard2 from "@/components/product/shoe2";
 import ShoeCard3 from "@/components/product/shoe3";
@@ -13,38 +11,46 @@ interface Product {
   name: string;
   price?: number;
   original_price?: number;
-  // Add other fields as expected
 }
 
-export default function ProductPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+// Server Component (no 'use client')
+export default async function ProductPage() {
+  let products: Product[] = [];
+  let errorMsg = null;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get("/api/new-products/");
-        if (Array.isArray(response.data)) {
-          setProducts(response.data);
-        } else if (response.data.results) {
-          // Handle paginated response if applicable
-          setProducts(response.data.results);
-        } else {
-          // Fallback or specific object structure
-          setProducts(response.data.products || []);
-        }
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  try {
+    // In SSR, we often need absolute URL for fetch, but if using axios with configured base URL it might work if environment variables are set.
+    // However, api.js uses localStorage which is NOT available on server.
+    // We should do a direct fetch here or ensure api.js handles server environment gracefully (it doesn't, it uses localStorage).
+    // So we'll use standard fetch to the external API directly, bypassing the client-side api utility for this server call.
 
-    fetchProducts();
-  }, []);
+    // Using the Base URL provided in the requirements
+    const res = await fetch("https://skilltestnextjs.evidam.zybotechlab.com/api/new-products/", {
+      cache: 'no-store' // Dynamic data
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch products: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    if (Array.isArray(data)) {
+      products = data;
+    } else if (data.results) {
+      products = data.results;
+    } else if (data.products) {
+      products = data.products;
+    }
+
+  } catch (err: any) {
+    console.error(err);
+    errorMsg = err.message;
+  }
 
   const renderShoeCard = (product: Product, index: number) => {
-    const CardType = index % 4; // Cycle through 0, 1, 2, 3
+    const CardType = index % 4;
+    // Passing product data from Server to Client Components (ShoeCardX)
     if (CardType === 0) return <ShoeCard1 key={product.id} product={product} />;
     if (CardType === 1) return <ShoeCard2 key={product.id} product={product} />;
     if (CardType === 2) return <ShoeCard3 key={product.id} product={product} />;
@@ -53,7 +59,7 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-[#111111] flex flex-col">
-      {/* HEADER */}
+      {/* HEADER (SSR) */}
       <Header />
 
       {/* MAIN CONTENT */}
@@ -65,21 +71,17 @@ export default function ProductPage() {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[24px]">
-          {loading ? (
-            // Skeleton or Loading State
-            <div className="text-white col-span-4 text-center">Loading Products...</div>
-          ) : (
+          {products.length > 0 ? (
             products.map((product, index) => renderShoeCard(product, index))
-          )}
-
-          {/* Fallback if no products found */}
-          {!loading && products.length === 0 && (
-            <div className="text-white col-span-4 text-center">No products found.</div>
+          ) : (
+            <div className="text-white col-span-4 text-center">
+              {errorMsg ? `Error: ${errorMsg}` : "No products found."}
+            </div>
           )}
         </div>
       </main>
 
-      {/* FOOTER */}
+      {/* FOOTER (SSR) */}
       <Footer />
     </div>
   );

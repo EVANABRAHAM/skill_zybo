@@ -9,7 +9,7 @@ export default function LoginFormBlock() {
 
   const handleVerify = async () => {
     try {
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token"); // Not needed with cookie flow
       const response = await api.post("/api/verify/", {
         phone_number: phone,
       });
@@ -24,7 +24,8 @@ export default function LoginFormBlock() {
         const otp = response.data.otp;
 
         if (token) {
-          localStorage.setItem("token", token);
+          // localStorage.setItem("token", token); // Removed in favor of cookie
+          document.cookie = `access_token=${token}; path=/; max-age=86400;`;
         }
 
         if (otp) {

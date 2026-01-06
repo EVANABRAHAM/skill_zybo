@@ -18,7 +18,17 @@ export default function OrdersPage() {
 
     useEffect(() => {
         const fetchOrders = async () => {
+            // Basic Client-Side Protection via Cookie
+            const match = document.cookie.match(new RegExp('(^| )access_token=([^;]+)'));
+            const token = match ? match[2] : null;
+
+            if (!token) {
+                router.push("/login");
+                return;
+            }
+
             try {
+                // api.js interceptor will handle attaching the token from cookie
                 const response = await api.get("/api/user-orders/");
                 if (Array.isArray(response.data)) {
                     setOrders(response.data);
