@@ -2,8 +2,22 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useRouter } from "next/navigation";
+import api from "@/utils/api";
 
-export default function ShoeCard1() {
+interface Product {
+    id: number | string;
+    name: string;
+    price?: number;
+    original_price?: number;
+    // Add other fields as needed based on API
+}
+
+interface ShoeCardProps {
+    product?: Product; // Make optional to prevent breaking if data missing
+}
+
+export default function ShoeCard1({ product }: ShoeCardProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
@@ -14,6 +28,25 @@ export default function ShoeCard1() {
     const circleRef = useRef<HTMLDivElement>(null);
     const bgTextRef = useRef<HTMLDivElement>(null);
     const tl = useRef<gsap.core.Timeline | null>(null);
+    const router = useRouter();
+
+    const handleBuyNow = async (e: React.MouseEvent) => {
+        e.stopPropagation(); // Prevent card hover events if any
+        if (!product) return;
+
+        try {
+            const response = await api.post("/api/purchase-product/", {
+                product_id: product.id
+            });
+            console.log("Order created:", response.data);
+            // Redirect to success page
+            router.push("/successful");
+        } catch (error) {
+            console.error("Purchase failed:", error);
+            // Handle error (alert or toast)
+            alert("Failed to purchase product. Please try again.");
+        }
+    };
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -97,8 +130,8 @@ export default function ShoeCard1() {
                 ref={contentRef}
                 className="absolute top-[58%] left-0 w-full flex flex-col items-center gap-4 z-[20] translate-y-[20px]"
             >
-                <h2 ref={titleRef} className="text-white font-inter font-bold text-[28px] uppercase tracking-wide">
-                    NIKE SHOES
+                <h2 ref={titleRef} className="text-white font-inter font-bold text-[28px] uppercase tracking-wide text-center px-4">
+                    {product ? product.name : "NIKE SHOES"}
                 </h2>
 
                 {/* Size Selector */}
@@ -128,6 +161,7 @@ export default function ShoeCard1() {
                 {/* Buy Now Button */}
                 <button
                     ref={buttonRef}
+                    onClick={handleBuyNow}
                     className="hidden opacity-0 bg-white text-black font-inter font-bold text-[14px] px-8 py-2 rounded-full hover:opacity-90 transition-opacity"
                 >
                     Buy Now
