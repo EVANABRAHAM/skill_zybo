@@ -25,7 +25,7 @@ export default function LoginFormBlock() {
 
         if (token) {
           // localStorage.setItem("token", token); // Removed in favor of cookie
-          document.cookie = `access_token=${token}; path=/; max-age=86400;`;s
+          document.cookie = `access_token=${token}; path=/; max-age=86400;`;
         }
 
         if (otp) {
