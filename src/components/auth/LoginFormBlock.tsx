@@ -17,7 +17,7 @@ export default function LoginFormBlock() {
 
       if (response.data.user === false) {
         // Redirect to Name page if user doesn't exist
-        router.push(`/login/name?phone=${encodeURIComponent(phone)}`);
+        router.push(`/name?phone=${encodeURIComponent(phone)}`);
       } else {
         // Existing user flow - check for token and redirect
         const token = response.data.access || response.data.token?.access;
@@ -25,7 +25,7 @@ export default function LoginFormBlock() {
 
         if (token) {
           // localStorage.setItem("token", token); // Removed in favor of cookie
-          document.cookie = `access_token=${token}; path=/; max-age=86400;`;
+          document.cookie = `access_token=${token}; path=/; max-age=86400;`;s
         }
 
         if (otp) {
