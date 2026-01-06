@@ -112,16 +112,15 @@ export default function ShoeCard2({ product }: ShoeCardProps) {
         NIKE
       </div>
 
-      {/* Shoe Image */}
+       {/* Shoe Image */}
       <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[10] w-[250px]">
         <img
           ref={shoeRef}
-          src="/images/Frame 8.svg"
+          src="/images/image 5.svg"
           alt="Nike Shoe"
-          className="w-full h-auto object-contain -rotate-[15deg] drop-shadow-2xl grayscale brightness-[.7] sepia hue-rotate-[-50deg] saturate-[3]"
+          className="w-full h-auto object-contain -rotate-[5deg] drop-shadow-2xl"
         />
       </div>
-
       {/* Content Container */}
       <div
         ref={contentRef}

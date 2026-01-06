@@ -10,18 +10,32 @@ export default async function AuthNav() {
 
   if (!isAuthenticated) {
     return (
-      <Link
-        href="/login"
-        className="text-white font-inter font-semibold text-[12px] tracking-[-0.03em] hover:opacity-80"
-      >
-        Log out
-      </Link>
+      <div className="flex items-center gap-[16px]">
+        <Link href="/orders">
+          <Image
+            src="/images/UserCircle.svg"
+            alt="User"
+            width={30}
+            height={30}
+            className="cursor-pointer"
+          />
+        </Link>
+
+        <form action="/api/logout" method="POST">
+          <button
+            type="submit"
+            className="text-white font-inter font-semibold text-[12px] hover:opacity-80"
+          >
+            Log Out
+          </button>
+        </form>
+      </div>
     );
   }
 
   return (
     <div className="flex items-center gap-[16px]">
-      {/* <Link href="/orders">
+      <Link href="/orders">
         <Image
           src="/images/UserCircle.svg"
           alt="User"
@@ -29,7 +43,7 @@ export default async function AuthNav() {
           height={30}
           className="cursor-pointer"
         />
-      </Link> */}
+      </Link>
 
       <form action="/api/logout" method="POST">
         <button

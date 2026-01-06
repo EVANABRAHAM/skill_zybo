@@ -1,12 +1,24 @@
 import Image from "next/image";
-import Link from "next/link";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/header";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function SuccessfulPage() {
+export default async function SuccessfulPage() {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("access_token");
+
+    if (!token) {
+        redirect("/login");
+    }
+
+    // Since this is a static success page, we don't fetch data here. 
+    // Ideally we'd fetch the specific order details if the ID was in the URL.
+    // For now, it matches the provided static design/requirements.
+
     return (
         <div className="min-h-screen bg-[#111111] flex flex-col font-inter">
-    
+
             <Header />
 
             {/* MAIN CONTENT */}
