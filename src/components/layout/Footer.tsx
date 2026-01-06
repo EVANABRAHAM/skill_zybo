@@ -2,44 +2,21 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer
-      className="
-        w-full
-        h-[244px]
-        px-[100px]
-        py-[64px]
-        bg-black
-        flex
-        flex-col
-        gap-[48px]
-      "
-    >
+    <footer className="w-full h-[244px] px-[100px] py-[64px] bg-black flex flex-col gap-[48px]">
       {/* Inner Layer */}
-      <div
-        className="
-          max-w-[1240px]
-          h-[56px]
-          w-full
-          flex
-          items-center
-          justify-between
-          mx-auto
-        "
-      >
+      <div className="max-w-[1240px] h-[56px] w-full flex items-center justify-between mx-auto">
         {/* Left: Nike Logo (increased size) */}
         <Image
           src="/images/Frame 1.svg"
           alt="Nike"
-          width={106.28}  // updated width
-          height={56}     // updated height
+          width={106.28}
+          height={56}
           priority
           className="object-contain"
         />
 
         {/* Right side: Social icons */}
-        <div
-          className="flex items-center gap-[44.29px] w-[151.53px] h-[22.6px]"
-        >
+        <div className="flex items-center gap-[44.29px] w-[151.53px] h-[22.6px]">
           <Image
             src="/images/Group.svg"
             alt="Facebook"

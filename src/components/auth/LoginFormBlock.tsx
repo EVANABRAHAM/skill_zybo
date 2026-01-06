@@ -21,10 +21,19 @@ export default function LoginFormBlock() {
       } else {
         // Existing user flow - check for token and redirect
         const token = response.data.access || response.data.token?.access;
+        const otp = response.data.otp;
+
         if (token) {
           localStorage.setItem("token", token);
         }
-        router.push("/product-page");
+
+        if (otp) {
+          // Redirect to Verify Phone page with OTP
+          router.push(`/verify_phone?otp=${encodeURIComponent(otp)}`);
+        } else {
+          // Fallback if no OTP provided
+          router.push("/product-page");
+        }
       }
     } catch (error) {
       console.error("Verification failed:", error);

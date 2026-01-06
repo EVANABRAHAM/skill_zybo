@@ -33,18 +33,7 @@ export default function Header() {
         {/* Logout Text */}
         <button
           onClick={handleLogout}
-          className="
-            text-white
-            font-inter
-            font-semibold
-            text-[12px]
-            leading-[19.16px]
-            tracking-[-0.03em]
-            text-center
-            opacity-100
-            hover:opacity-80
-            transition-opacity
-          "
+          className="text-white font-inter font-semibold text-[12px] leading-[19.16px] tracking-[-0.03em] text-center opacity-100 hover:opacity-80 transition-opacity"
         >
           Log Out
         </button>
