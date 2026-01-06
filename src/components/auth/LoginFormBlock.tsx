@@ -14,27 +14,9 @@ export default function LoginFormBlock() {
         </label>
 
         <input
-  type="tel"
-  placeholder="Enter Phone"
-  className="
-    w-[600px]
-    h-[56px]
-    px-[16px]
-    py-[10px]
-    rounded-[12px]
-    bg-white/10
-    text-white
-    font-inter
-    text-[16px]
-    outline-none
-    placeholder:text-[15px]
-    placeholder:font-normal
-    placeholder:tracking-[-0.03em]
-    placeholder-white/30
-  "
-/>
-
-
+          type="tel"
+          placeholder="Enter Phone"
+          className=" w-[600px] h-[56px] px-[16px] py-[10px] rounded-[12px] bg-white/10 text-white font-inter text-[16px] outline-none placeholder:text-[15px] placeholder:font-normal placeholder:tracking-[-0.03em] placeholder-white/3"/>
         <button
           type="button"
           className="
