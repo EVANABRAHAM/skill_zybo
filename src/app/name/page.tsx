@@ -1,37 +1,40 @@
 import LoginHeader from "@/components/auth/LoginHeader";
-import WelcomeBlock from "@/components/auth/Welcome";
+import NameFormBlock from "@/components/auth/NameFormBlock";
 import Footer from "@/components/layout/Footer";
+import { Suspense } from "react";
 
-export default function LoginPage() {
-  return (
-    <div className="bg-black">
+export default function NamePage() {
+    return (
+        <div className="bg-black">
 
-      {/* HEADER */}
-      <LoginHeader />
+            {/* HEADER */}
+            <LoginHeader />
 
-      {/* FIRST SCREEN (FULL VIEWPORT) */}
-      <section className="flex w-full h-[calc(100vh-70px)]">
+            {/* FIRST SCREEN (FULL VIEWPORT) */}
+            <section className="flex w-full h-[calc(100vh-70px)]">
 
-        {/* LEFT SIDE – Background */}
-        <div
-          className="w-1/2 h-full relative bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/login-bg.svg')",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/20" />
+                {/* LEFT SIDE – Background */}
+                <div
+                    className="w-1/2 h-full relative bg-cover bg-center"
+                    style={{
+                        backgroundImage: "url('/images/login-bg.svg')",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/20" />
+                </div>
+
+                {/* RIGHT SIDE – Login Form */}
+                <div className="w-1/2 h-full bg-black flex items-center justify-center">
+                    <Suspense fallback={<div className="text-white text-center mt-20">Loading...</div>}>
+                        <NameFormBlock />
+                    </Suspense>
+                </div>
+
+            </section>
+
+            {/* FOOTER (SCROLL REQUIRED) */}
+            <Footer />
+
         </div>
-
-        {/* RIGHT SIDE – Login Form */}
-        <div className="w-1/2 h-full bg-black flex items-center justify-center">
-          <WelcomeBlock />
-        </div>
-
-      </section>
-
-      {/* FOOTER (SCROLL REQUIRED) */}
-      <Footer />
-
-    </div>
-  );
+    );
 }
