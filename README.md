@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Skill Test – Next.js E-Commerce App
 
-## Getting Started
+This project is a small e-commerce application built as part of a skill test.
+The goal was to closely follow the given Figma design while demonstrating SSR, GSAP animations, token-based authentication, and clean API integration using Next.js App Router.
 
-First, run the development server:
+##  Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**[Add your deployed link here – Vercel / Netlify]**
+
+## 🛠 Tech Stack & Why I Chose It
+
+### Next.js (App Router)
+
+I used Next.js App Router mainly for its strong Server-Side Rendering support.
+This helped me render important parts like the Navbar, Footer, Product page, Orders page, etc., directly on the server as required in the task.
+
+### Styling – Tailwind CSS
+
+Tailwind made it easy to:
+
+*   Match the Figma spacing and typography precisely
+*   Maintain a consistent dark theme
+*   Keep the code clean without large CSS files
+
+### Animations – GSAP
+
+GSAP was used for all required animations:
+
+*   Product card hover animations
+*   Smooth image lift, background text movement, and content reveal
+*   All animations are handled via `gsap.timeline()` (no CSS-only animations)
+
+### Authentication & State Handling
+
+*   Used **cookie-based authentication** to properly support SSR
+*   The `access_token` is stored in cookies so Server Components can read auth state
+*   This avoids hydration issues and ensures the Navbar renders correctly on first load
+
+### API Integration
+
+*   Server Components use native `fetch` for protected data (orders, product details)
+*   Client-side actions (login, OTP, interactions) use clean API calls
+*   Authorization is handled via `Authorization: Bearer <token>`
+
+##  How to Run the Project
+
+1.  **Clone the repo**
+    ```bash
+    git clone <repository-url>
+    cd skill_zybo
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3.  **Setup environment variables**
+
+    Create a `.env.local` file:
+    ```env
+    NEXT_PUBLIC_API_BASE_URL=https://skilltestnextjs.evidam.zybotechlab.com
+    ```
+
+4.  **Run locally**
+    ```bash
+    npm run dev
+    ```
+
+5.  **Production build**
+    ```bash
+    npm run build
+    npm start
+    ```
+
+##  Project Structure
+
+```
+src/
+├── app/
+│   ├── api/            # API routes (logout, helpers)
+│   ├── login/          # Login flow
+│   ├── orders/         # Protected Orders page (SSR)
+│   ├── product-page/   # Product listing (SSR)
+│   ├── verify_phone/   # OTP verification
+│   ├── layout.tsx      # Root layout
+│   └── page.tsx        # Entry page
+├── components/
+│   ├── auth/           # Auth-related UI
+│   ├── icons/          # SVG icons
+│   ├── layout/         # Header, Footer, AuthNav
+│   └── product/        # Product cards (GSAP animations)
+└── utils/              # API utilities
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##  Features Implemented
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   **SSR Navbar & Footer** with auth-based rendering
+-   **GSAP animations** for product cards
+-   **Cookie-based JWT authentication**
+-   **OTP login flow**
+-   **Protected routes** (Orders, Success page)
+-   **Order history listing**
