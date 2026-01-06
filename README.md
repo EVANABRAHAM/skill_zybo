@@ -5,22 +5,8 @@ The goal was to closely follow the given Figma design while demonstrating SSR, G
 
 ##  Live Demo
 
-**[Add your deployed link here – Vercel / Netlify]**
+https://skill-zybo.vercel.app
 
-## 🛠 Tech Stack & Why I Chose It
-
-### Next.js (App Router)
-
-I used Next.js App Router mainly for its strong Server-Side Rendering support.
-This helped me render important parts like the Navbar, Footer, Product page, Orders page, etc., directly on the server as required in the task.
-
-### Styling – Tailwind CSS
-
-Tailwind made it easy to:
-
-*   Match the Figma spacing and typography precisely
-*   Maintain a consistent dark theme
-*   Keep the code clean without large CSS files
 
 ### Animations – GSAP
 
